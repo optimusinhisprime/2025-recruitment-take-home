@@ -38,6 +38,7 @@ export default class RestAPIService {
 
         try {
             const payload = this.endpointRepository.dataToPayload(data);
+            console.log("POST Payload:", payload);
             const response = await fetch(
                 this.endpointRepository.getRequestUrl().startsWith("http")
                     ? this.endpointRepository.getRequestUrl()
