@@ -197,8 +197,64 @@
                                 </li>
                             </ul>
                             <div class="block-footer">
-                                Some text about login information.<br />Click
-                                "Sign In" to close Login Screen
+                                <a href="/" class="forgot-password-link">
+                                    Forgot Password?
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forgot Password Screen -->
+        <div class="login-screen" id="forgot-password-screen">
+            <div class="view">
+                <div class="page">
+                    <div class="page-content login-screen-content">
+                        <div class="login-screen-title">Reset Password</div>
+                        <div class="block">
+                            <p>
+                                Enter your email address and we'll send you
+                                instructions to reset your password.
+                            </p>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            Email *
+                                        </div>
+                                        <div class="item-input-wrap">
+                                            <input
+                                                type="email"
+                                                name="reset-email"
+                                                id="reset-email"
+                                                placeholder="Enter your email address"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="item-link list-button send-reset-button"
+                                    >
+                                        Send Reset Instructions
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="block-footer">
+                                Remember your password?
+                                <a href="#" class="back-to-login-link"
+                                    >Back to Login</a
+                                >
                             </div>
                         </div>
                     </div>
@@ -207,6 +263,7 @@
         </div>
     </div>
 </template>
+
 <script>
     export default (props, { $f7, $update }) => {
         return $render;
