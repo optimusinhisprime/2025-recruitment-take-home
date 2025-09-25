@@ -27,10 +27,12 @@ export default class ForgotPasswordUsecase {
     async execute(email) {
         console.log(`Sending password reset to: ${email}`);
 
-        // Pre-validate email using Helper class
-        if (!Helper.validateEmail(email)) {
-            throw new Error("Invalid email format");
-        }
+        // Set loading state for the forgot password button
+        Helper.setButtonLoading(
+            ".forgot-password-button",
+            true,
+            "Sending reset email..."
+        );
 
         try {
             // Make actual API call using the RestAPIService
@@ -40,12 +42,28 @@ export default class ForgotPasswordUsecase {
                 throw new Error(result.message);
             }
 
+            Helper.showSuccess(
+                this.app,
+                "Password reset email sent successfully!"
+            );
+
+            // Navigate back or close modal after configured delay
+            setTimeout(() => {
+                // This could navigate back to login or close a modal depending on UI structure
+                this.app.views.main.router.back();
+            }, Helper.VALIDATION_CONFIG.AUTO_REDIRECT_DELAY);
+
             return result;
         } catch (error) {
             console.error("Forgot password API error:", error);
-            throw new Error(
+            Helper.showError(
+                this.app,
                 error.message || "Failed to send password reset email"
             );
+            throw error;
+        } finally {
+            // Remove loading state
+            Helper.setButtonLoading(".forgot-password-button", false);
         }
     }
 }

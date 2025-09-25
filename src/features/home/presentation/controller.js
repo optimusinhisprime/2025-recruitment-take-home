@@ -1,6 +1,6 @@
 import EventService from "../../../services/eventService";
 import VerifyLoginUsecase from "../../login/usecases/verifyLoginUsecase";
-import LogoutUserUseCase from "../../login/usecases/logOutUserUsecase.js";
+import LogoutUserUsecase from "../../login/usecases/logOutUserusecase.js";
 import Helper from "../../../utils/helper.js";
 
 /**
@@ -105,7 +105,7 @@ export default class HomeController {
      */
     async logUserOut() {
         try {
-            await new LogoutUserUseCase(this.app).execute();
+            await new LogoutUserUsecase(this.app).execute();
             Helper.showSuccess(this.app, "Logged out successfully");
             this.showLoginScreen();
         } catch (error) {
@@ -135,6 +135,8 @@ export default class HomeController {
      * @memberof HomeController
      */
     showLoginScreen() {
+        // Reset login button state to ensure it's not stuck in loading state
+        Helper.setButtonLoading(".login-button", false);
         this.app.loginScreen.open("#login-screen", false);
     }
 

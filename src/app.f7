@@ -132,7 +132,14 @@
                                 <li>
                                     <a href="/" class="panel-close">Helpdesk</a>
                                     <a href="/" class="panel-close">Settings</a>
-                                    <!-- <li><a href="/left-page-2/">Left Page 2</a></li> -->
+                                    <a
+                                        href="#"
+                                        class="panel-close"
+                                        id="home-action-logout"
+                                        style="color: #c0392b"
+                                    >
+                                        Logout
+                                    </a>
                                 </li>
                             </ul>
                         </div>
