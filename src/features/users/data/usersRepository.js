@@ -24,25 +24,27 @@ export default class UsersRepository {
      */
     dataToPayload(userData) {
         return {
-            definition: "createUser",
-            data: {
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-                email: userData.email,
-                account: userData.account,
-                accounts:
-                    userData.userType === "Merchant"
-                        ? userData.accounts || []
-                        : [],
-                outlets: userData.outlets || [],
-                createdby: userData.createdby,
-                group: userData.group,
-                password: userData.password,
-                role: userData.role,
-                userType: userData.userType,
-                currentUserUid: userData.currentUserUid,
-                branch: userData.branch,
-            },
+            data: JSON.stringify({
+                definition: "createUser",
+                data: {
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    account: userData.account,
+                    accounts:
+                        userData.userType === "Merchant"
+                            ? userData.accounts || []
+                            : [],
+                    outlets: userData.outlets || [],
+                    createdby: userData.createdby,
+                    group: userData.group,
+                    password: userData.password,
+                    role: userData.role,
+                    userType: userData.userType,
+                    currentUserUid: userData.currentUserUid,
+                    branch: userData.branch,
+                },
+            }),
         };
     }
 
@@ -61,6 +63,25 @@ export default class UsersRepository {
             description: payload?.description,
             status: payload?.status,
             success: payload?.code === "0" && payload?.status === 200,
+        };
+    }
+
+    /**
+     * Transforms user list request to API payload format.
+     *
+     * @param {Object} filters Optional filters for the user list
+     * @return {Object} The API payload.
+     * @memberof UsersRepository
+     */
+    getUsersListPayload(filters = {}) {
+        return {
+            data: JSON.stringify({
+                definition: "getUsersList",
+                data: {
+                    ...filters,
+                    currentUserUid: filters.currentUserUid,
+                },
+            }),
         };
     }
 }
