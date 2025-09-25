@@ -1,4 +1,5 @@
 import LoginUserUsecase from "../usecases/loginUserUsecase.js";
+import Helper from "../../../utils/helper.js";
 
 /**
  * Controller class responsible for managing the Login page and its interactions.
@@ -9,26 +10,30 @@ import LoginUserUsecase from "../usecases/loginUserUsecase.js";
 export default class LoginController {
     /**
      * Creates an instance of LoginController.
-     * @param {*} app
+     *
+     * @param {Object} app - The Framework7 app instance
      * @memberof LoginController
      */
     constructor(app) {
         this.app = app;
         this.init();
     }
+
     /**
-     * Initializes event listeners for click events on the login button.
+     * Initializes event listeners for login functionality.
      *
+     * @private
      * @memberof LoginController
      */
     init() {
+        console.log("LoginController initialized");
+
         document.addEventListener("click", async (e) => {
             if (e.target.classList.contains("login-button")) {
                 await this.handleLogin();
             }
         });
 
-        // listen for input in email and password for validation
         document.addEventListener("input", async (e) => {
             await this.handleInputEvents(e);
         });
@@ -37,128 +42,172 @@ export default class LoginController {
     /**
      * Handles the login process when the login button is clicked.
      *
+     * @async
+     * @returns {Promise<void>} A promise that resolves when login processing is complete
      * @memberof LoginController
      */
     async handleLogin() {
         try {
-            const email = document.querySelector(
-                'input[name="username"]'
-            ).value;
-            const password = document.querySelector(
-                'input[name="password"]'
-            ).value;
+            const formData = this.getFormData();
 
-            if (!this.validateRequiredFields(email, password)) {
+            if (!this.validateLoginForm(formData)) {
                 return;
             }
 
-            if (!this.validateEmail(email)) {
-                this.showError("Please enter a valid email address");
-                return;
-            }
-
-            if (!this.validatePassword(password)) {
-                this.showError("Password must be at least 6 characters long");
-                return;
-            }
+            Helper.setButtonLoading(".login-button", true, "Signing in...");
 
             const useCase = new LoginUserUsecase(this.app);
-            await useCase.execute(email, password);
+            const encryptedPassword = await Helper.encryptString(
+                formData.password
+            );
 
-            console.log("Login successful:", result);
+            await useCase.execute(formData.email, encryptedPassword);
         } catch (error) {
-            this.showError(error.message);
+            Helper.showError(
+                this.app,
+                error.message || "Login failed. Please try again."
+            );
+            console.error("Error in handleLogin:", error);
+        } finally {
+            Helper.setButtonLoading(".login-button", false);
         }
     }
 
     /**
-     * Validates that required fields are not empty
-     * @param {string} email
-     * @param {string} password
-     * @returns {boolean}
+     * Gets form data from login fields.
+     *
+     * @private
+     * @returns {Object} Form data object with email and password
+     * @memberof LoginController
      */
-    validateRequiredFields(email, password) {
-        if (!email || email.trim() === "") {
-            this.showError("Email is required");
-            this.highlightField('input[name="username"]', true);
+    getFormData() {
+        return {
+            email: Helper.getFieldValue("username"),
+            password: Helper.getFieldValue("password"),
+        };
+    }
+
+    /**
+     * Validates the login form data.
+     *
+     * @private
+     * @param {Object} formData - Form data to validate
+     * @returns {boolean} True if form is valid
+     * @memberof LoginController
+     */
+    validateLoginForm(formData) {
+        const { email, password } = formData;
+
+        // Clear any existing error highlights
+        this.clearFieldErrors(["username", "password"]);
+
+        // Validate required fields
+        if (!Helper.validateRequired(email)) {
+            this.showFieldError("username", "Email is required");
             return false;
         }
 
-        if (!password || password.trim() === "") {
-            this.showError("Password is required");
-            this.highlightField('input[name="password"]', true);
+        if (!Helper.validateRequired(password)) {
+            this.showFieldError("password", "Password is required");
             return false;
         }
 
-        // Remove error highlights if fields are filled
-        this.highlightField('input[name="username"]', false);
-        this.highlightField('input[name="password"]', false);
+        // Validate email format
+        if (!Helper.validateEmail(email)) {
+            this.showFieldError(
+                "username",
+                "Please enter a valid email address"
+            );
+            return false;
+        }
+
+        // Validate password length
+        if (
+            !Helper.validatePassword(
+                password,
+                Helper.VALIDATION_CONFIG.LOGIN_PASSWORD_MIN_LENGTH
+            )
+        ) {
+            this.showFieldError(
+                "password",
+                `Password must be at least ${Helper.VALIDATION_CONFIG.LOGIN_PASSWORD_MIN_LENGTH} characters long`
+            );
+            return false;
+        }
 
         return true;
     }
 
     /**
-     * Validates email format
-     * @param {string} email
-     * @returns {boolean}
+     * Shows error for a specific field.
+     *
+     * @private
+     * @param {string} fieldName - Name of the field
+     * @param {string} message - Error message to display
+     * @memberof LoginController
      */
-    validateEmail(email) {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailPattern.test(email);
+    showFieldError(fieldName, message) {
+        Helper.showError(this.app, message);
+        Helper.highlightField(`input[name="${fieldName}"]`, true);
     }
 
     /**
-     * Validates password requirements
-     * @param {string} password
-     * @returns {boolean}
+     * Clears error highlights from specified fields.
+     *
+     * @private
+     * @param {string[]} fieldNames - Array of field names to clear
+     * @memberof LoginController
      */
-    validatePassword(password) {
-        return password && password.length >= 10;
+    clearFieldErrors(fieldNames) {
+        fieldNames.forEach((fieldName) => {
+            Helper.highlightField(`input[name="${fieldName}"]`, false);
+        });
     }
 
-    highlightField(selector, hasError) {
-        const field = document.querySelector(selector);
-        if (field) {
-            if (hasError) {
-                field.style.borderColor = "#ff3b30";
-                field.style.backgroundColor = "#fff5f5";
-            } else {
-                field.style.borderColor = "";
-                field.style.backgroundColor = "";
-            }
-        }
-    }
-
-    showError(message) {
-        this.app.toast
-            .create({
-                text: message,
-                closeTimeout: 3000,
-            })
-            .open();
-    }
-
+    /**
+     * Handles input events for real-time validation feedback.
+     *
+     * @param {Event} e - The input event
+     * @returns {Promise<void>} A promise that resolves when input handling is complete
+     * @memberof LoginController
+     */
     async handleInputEvents(e) {
         const { name, value } = e.target;
 
         // Clear error styling on input
-        this.highlightField(`input[name="${name}"]`, false);
+        Helper.highlightField(`input[name="${name}"]`, false);
 
-        switch (name) {
+        // Real-time validation
+        if (value) {
+            this.validateFieldRealTime(name, value);
+        }
+    }
+
+    /**
+     * Performs real-time validation for individual fields.
+     *
+     * @private
+     * @param {string} fieldName - Name of the field being validated
+     * @param {string} value - Current field value
+     * @memberof LoginController
+     */
+    validateFieldRealTime(fieldName, value) {
+        switch (fieldName) {
             case "username":
-                // Real-time email validation
-                if (value && !this.validateEmail(value)) {
-                    this.highlightField('input[name="username"]', true);
+                if (!Helper.validateEmail(value)) {
+                    Helper.highlightField('input[name="username"]', true);
                 }
                 break;
 
             case "password":
-                // Real-time password validation
-                if (value && !this.validatePassword(value)) {
-                    this.highlightField('input[name="password"]', true);
+                if (
+                    !Helper.validatePassword(
+                        value,
+                        Helper.VALIDATION_CONFIG.LOGIN_PASSWORD_MIN_LENGTH
+                    )
+                ) {
+                    Helper.highlightField('input[name="password"]', true);
                 }
-                break;
-            default:
                 break;
         }
     }
