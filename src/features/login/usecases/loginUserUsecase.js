@@ -10,8 +10,8 @@ import databaseService from "../../../services/databaseService.js";
  */
 export default class LoginUserUsecase {
     /**
-     * Creates an instance of LoginUserUseCase.
-     * @param {*} app
+     * Creates an instance of LoginUserUsecase.
+     * @param {Object} app - The Framework7 app instance
      * @memberof LoginUserUsecase
      */
     constructor(app) {
@@ -31,9 +31,8 @@ export default class LoginUserUsecase {
     async execute(email, password) {
         try {
             const credentials = { email, password };
-            const userData = await this.apiService.makePostCall(credentials);
 
-            console.log("User data received:", userData);
+            const userData = await this.apiService.makePostCall(credentials);
 
             // Store user info in local DB
             await databaseService.setDataById("currentUserData", userData);

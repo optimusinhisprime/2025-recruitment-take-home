@@ -9,9 +9,12 @@ import databaseService from "../../../services/databaseService.js";
 export default class VerifyLoginUsecase {
     /**
      * Creates an instance of VerifyLoginUsecase.
+     * @param {Object} app - The Framework7 app instance
      * @memberof VerifyLoginUsecase
      */
-    constructor() {}
+    constructor(app) {
+        this.app = app;
+    }
 
     /**
      * Executes the use case to verify if a user is logged in.
@@ -22,7 +25,6 @@ export default class VerifyLoginUsecase {
     async execute() {
         // Check if user data exists in the database to determine login status
         const userId = await databaseService.getDataById("currentUserId");
-        console.log("VerifyLoginUsecase: User ID fetched:", userId);
         return !!userId;
     }
 }
