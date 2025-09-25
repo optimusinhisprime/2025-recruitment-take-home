@@ -1,4 +1,5 @@
 import HomeController from "../features/home/presentation/controller.js";
+import LoginController from "../features/login/presentation/controller.js";
 import Framework7 from "framework7/bundle";
 import Helper from "../utils/helper.js";
 import Chart from "chart.js/auto";
@@ -31,6 +32,7 @@ var app = new Framework7({
  */
 app.on("init", function () {
     new HomeController(app); //start here
+    new LoginController(app);
     new Helper().registerServiceWorker();
 
     /**
@@ -259,11 +261,11 @@ app.on("init", function () {
             }
         });
 
-        // The following block is duplicated and can be removed for clarity.
-        // (You may want to keep only one instance of this DOMContentLoaded block.)
-        document.addEventListener("DOMContentLoaded", function () {
-            // ... same chart initialization code as above ...
-        });
+        // // The following block is duplicated and can be removed for clarity.
+        // // (You may want to keep only one instance of this DOMContentLoaded block.)
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     // ... same chart initialization code as above ...
+        // });
     };
 
     // Wait for the page to load before trying to render the chart

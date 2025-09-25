@@ -1,5 +1,5 @@
 import EventService from "../../../services/eventService";
-// import Helper from "../../../utils/helper";
+import VerifyLoginUsecase from "../../login/usecases/verifyLoginUsecase";
 // import store from "../../../js/store"; //framewor7 state management
 
 /**
@@ -58,9 +58,6 @@ export default class HomeController {
      * @returns {Promise<void>} A promise that resolves when the click handling is complete.
      */
     async handleClickEvents(e) {
-        if (e.target.id == "login-action") {
-            await this.loginUserToAccount();
-        }
         if (e.target.id == "home-action-logout") {
             await this.logUserOut();
         }
@@ -73,26 +70,12 @@ export default class HomeController {
      */
     async handleHomePage() {
         //the place to start thinking of login logic
-        // const isLoggedIn = await this.isUserLoggedIn();
-        // if (!isLoggedIn) return
-        this.showLoginScreen();
-    }
+        const isLoggedIn = await this.isUserLoggedIn();
 
-    /**
-     * Logs the user into their account by executing the login process.
-     *
-     * This function retrieves the user ID and password from the DOM, creates a
-     * data object to send, and then calls the `LoginUserUseCase` to handle the login.
-     *
-     * @returns {Promise<void>} A promise that resolves when the login process is complete.
-     * @throws {Error} Throws an error if the login process fails.
-     */
-    async loginUserToAccount() {
-        // const userId = new Helper().readAndClearField("login-user-id");
-        // const password = new Helper().readAndClearField("login-password");
-        // new Helper().readAndClearField("login-password-visible");
-        // await new LoginUserUseCase(this.app).execute(userId, password);
-        //clear data inputs
+        if (isLoggedIn) {
+            return;
+        }
+        this.showLoginScreen();
     }
 
     /**
@@ -111,7 +94,7 @@ export default class HomeController {
      * @returns {Promise<boolean>} A promise that resolves to true if the user is logged in, false otherwise.
      */
     async isUserLoggedIn() {
-        // return await new VerifyLoginUsecase().execute();
+        return new VerifyLoginUsecase().execute();
     }
 
     /**
