@@ -62,9 +62,9 @@ export default class CreateUserUsecase {
                 result.message || "User created successfully!"
             );
 
-            // Navigate back or close modal after configured delay
+            // Navigate to users list after configured delay
             setTimeout(() => {
-                this.app.views.main.router.back();
+                this.app.views.main.router.navigate("/users-list");
             }, Helper.VALIDATION_CONFIG.AUTO_REDIRECT_DELAY);
 
             return result;
