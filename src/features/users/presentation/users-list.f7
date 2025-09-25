@@ -1,0 +1,125 @@
+<template>
+    <div class="page" data-name="users-list">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+                <div class="title">Users Management</div>
+                <div class="right">
+                    <a href="/create-user" class="link">
+                        <i class="icon material-icons">add</i>
+                        <span class="if-not-md">Add User</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="block-title">
+                <span>Users List</span>
+                <span class="users-count badge color-blue">3</span>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="searchbar-backdrop"></div>
+            <div class="searchbar">
+                <div class="searchbar-inner">
+                    <div class="searchbar-input-wrap">
+                        <input type="search" placeholder="Search users..." />
+                        <i class="searchbar-icon"></i>
+                        <span class="input-clear-button"></span>
+                    </div>
+                    <span class="searchbar-disable-button">Cancel</span>
+                </div>
+            </div>
+
+            <!-- Sample Users Table -->
+            <div class="users-table-container">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="label-cell">Name</th>
+                                <th class="label-cell">Email</th>
+                                <th class="label-cell">Role</th>
+                                <th class="label-cell">User Type</th>
+                                <th class="label-cell">Branch</th>
+                                <th class="label-cell">Status</th>
+                                <th class="label-cell">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="users-table-body">
+                            <tr>
+                                <td class="label-cell">John Doe</td>
+                                <td class="label-cell">john.doe@prepaidplus.co.bw</td>
+                                <td class="label-cell">
+                                    <span class="badge color-red">Administrator</span>
+                                </td>
+                                <td class="label-cell">PrepaidPlus</td>
+                                <td class="label-cell">Gaborone</td>
+                                <td class="label-cell">
+                                    <span class="badge color-green">Active</span>
+                                </td>
+                                <td class="label-cell">
+                                    <a href="#" class="link">
+                                        <i class="icon material-icons">visibility</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Jane Smith</td>
+                                <td class="label-cell">jane.smith@prepaidplus.co.bw</td>
+                                <td class="label-cell">
+                                    <span class="badge color-orange">Supervisor</span>
+                                </td>
+                                <td class="label-cell">Merchant</td>
+                                <td class="label-cell">Francistown</td>
+                                <td class="label-cell">
+                                    <span class="badge color-green">Active</span>
+                                </td>
+                                <td class="label-cell">
+                                    <a href="#" class="link">
+                                        <i class="icon material-icons">visibility</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Mike Johnson</td>
+                                <td class="label-cell">mike.johnson@prepaidplus.co.bw</td>
+                                <td class="label-cell">
+                                    <span class="badge color-orange">Supervisor</span>
+                                </td>
+                                <td class="label-cell">Merchant</td>
+                                <td class="label-cell">Maun</td>
+                                <td class="label-cell">
+                                    <span class="badge color-red">Inactive</span>
+                                </td>
+                                <td class="label-cell">
+                                    <a href="#" class="link">
+                                        <i class="icon material-icons">visibility</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="block">
+                <p style="text-align: center; color: #666; font-style: italic;">
+                    This is a sample users list view. API integration coming soon!
+                </p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default (props, { $f7, $update }) => {
+        return $render;
+    };
+</script>
