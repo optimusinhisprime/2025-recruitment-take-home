@@ -23,4 +23,21 @@ export default class Helper {
             }
         }
     }
+
+    /**
+     * Reads the value from an input field by its ID and then clears the field.
+     *
+     * @param {*} fieldId
+     * @return {*}
+     * @memberof Helper
+     */
+    async readAndClearField(fieldId) {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            const value = field.value;
+            field.value = "";
+            return value;
+        }
+        return null;
+    }
 }
