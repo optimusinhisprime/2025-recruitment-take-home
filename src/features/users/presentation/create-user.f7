@@ -1,0 +1,211 @@
+<template>
+    <div class="page" data-name="create-user">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+                <div class="title">Create User</div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="block-title">User Information</div>
+            <div class="list">
+                <ul>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">
+                                First Name *
+                            </div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    id="firstName"
+                                    placeholder="Enter first name"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Last Name *</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    id="lastName"
+                                    placeholder="Enter last name"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Email *</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Enter email address"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Password *</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Enter password"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="block-title">Account Information</div>
+            <div class="list">
+                <ul>
+                    <li class="item-content item-input item-input-with-value">
+                        <div class="item-inner">
+                            <div class="item-title item-label">User Type *</div>
+                            <div class="item-input-wrap">
+                                <select name="userType" id="userType" required>
+                                    <option value="">Select user type</option>
+                                    <option value="Merchant">Merchant</option>
+                                    <option value="PrepaidPlus">
+                                        PrepaidPlus
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input item-input-with-value">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Role *</div>
+                            <div class="item-input-wrap">
+                                <select name="role" id="role" required>
+                                    <option value="">Select role</option>
+                                    <option value="Administrator">
+                                        Administrator
+                                    </option>
+                                    <option value="Supervisor">
+                                        Supervisor
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Account *</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="account"
+                                    id="account"
+                                    placeholder="8 digit number or PrepaidPlus"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Group *</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="group"
+                                    id="group"
+                                    placeholder="PrepaidPlus or account number"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Accounts</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="accounts"
+                                    id="accounts"
+                                    placeholder="Comma-separated account numbers (for Merchants)"
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Outlets</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="outlets"
+                                    id="outlets"
+                                    placeholder="Comma-separated outlet IDs"
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Created By</div>
+                            <div class="item-input-wrap">
+                                <input
+                                    type="text"
+                                    name="createdby"
+                                    id="createdby"
+                                    placeholder="Created by"
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input item-input-with-value">
+                        <div class="item-inner">
+                            <div class="item-title item-label">Branch *</div>
+                            <div class="item-input-wrap">
+                                <select name="branch" id="branch" required>
+                                    <option value="">Select branch</option>
+                                    <option value="Gaborone">Gaborone</option>
+                                    <option value="Francistown">
+                                        Francistown
+                                    </option>
+                                    <option value="Maun">Maun</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="block">
+                <a href="#" class="button button-fill create-user-button">
+                    Create User
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default (props, { $f7, $update }) => {
+        return $render;
+    };
+</script>

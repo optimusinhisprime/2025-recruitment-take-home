@@ -1,6 +1,7 @@
 import HomeController from "../features/home/presentation/controller.js";
 import LoginController from "../features/login/presentation/controller.js";
 import PasswordController from "../features/password/presentation/controller.js";
+import UsersController from "../features/users/presentation/controller.js";
 import Framework7 from "framework7/bundle";
 import Helper from "../utils/helper.js";
 import Chart from "chart.js/auto";
@@ -35,6 +36,7 @@ app.on("init", function () {
     new HomeController(app); //start here
     new LoginController(app);
     new PasswordController(app);
+    new UsersController(app);
     new Helper().registerServiceWorker();
 
     /**
