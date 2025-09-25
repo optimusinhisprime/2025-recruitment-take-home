@@ -1,4 +1,5 @@
 import databaseService from "../../../services/databaseService.js";
+import Helper from "../../../utils/helper.js";
 
 /**
  * Use case class for handling user logout functionality.
@@ -6,36 +7,39 @@ import databaseService from "../../../services/databaseService.js";
  * @export
  * @class LogOutUserUsecase
  */
-export default class LogOutUserUsecase {
+export default class LogoutUserUsecase {
+    /**
+     * Creates an instance of LogOutUserUsecase.
+     * @param {Object} app - The Framework7 app instance
+     * @memberof LogOutUserUsecase
+     */
     constructor(app) {
         this.app = app;
     }
 
+    /**
+     * Executes the logout process by clearing user data and navigating to the login page.
+     *
+     * @memberof LogOutUserUsecase
+     */
     async execute() {
+        // Set loading state for logout button if it exists
+        Helper.setButtonLoading(".logout-button", true, "Logging out...");
+
         try {
             // Clear user info from local DB
             await databaseService.removeDataById("currentUserData", null);
             await databaseService.removeDataById("currentUserId", null);
 
-            this.app.toast
-                .create({
-                    text: "Logout successful!",
-                    closeTimeout: 3000,
-                    position: "top",
-                    color: "green",
-                })
-                .open();
+            Helper.showSuccess(this.app, "Logout successful!");
 
-            this.app.views.main.router.navigate("/");
+            Helper.setButtonLoading(".logout-button", false);
+            // Navigate to home with delay for better UX
+            setTimeout(() => {
+                this.app.views.main.router.navigate("/");
+            }, Helper.VALIDATION_CONFIG.AUTO_REDIRECT_DELAY);
         } catch (error) {
-            this.app.toast
-                .create({
-                    text: `Logout failed: ${error.message}`,
-                    closeTimeout: 3000,
-                    position: "top",
-                    color: "red",
-                })
-                .open();
+            Helper.showError(this.app, `Logout failed: ${error.message}`);
         }
     }
 }
