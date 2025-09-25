@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 export default class V3BankDetailsRepository {
     /**
      *
      */
-    constructor() { }
+    constructor() {}
 
     /**
      * Returns the request URL of the API endpoint.

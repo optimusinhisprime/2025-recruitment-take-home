@@ -1,47 +1,58 @@
 import EventService from "../../../services/eventService";
-// import Helper from "../../../utils/helper";
-// import store from "../../../js/store"; //framewor7 state management
+import VerifyLoginUsecase from "../../login/usecases/verifyLoginUsecase";
+import LogoutUserUsecase from "../../login/usecases/logOutUserusecase.js";
+import Helper from "../../../utils/helper.js";
 
 /**
- * Controller class responsible for managing the Welcome page and its interactions.
+ * Controller class responsible for managing the Home page and its interactions.
+ *
+ * @export
+ * @class HomeController
  */
 export default class HomeController {
     /**
-     * Initializes the HomeController with the app object and sets up event listeners.
+     * Creates an instance of HomeController.
      *
-     * @param {Object} app The application object used in the controller.
+     * @param {Object} app - The Framework7 app instance
+     * @memberof HomeController
      */
     constructor(app) {
         this.app = app;
+        this.eventService = new EventService();
         this.init();
     }
 
     /**
-     * Initializes event listeners for page initialization and click events.
+     * Initializes event listeners and sets up the controller.
      *
      * @private
+     * @memberof HomeController
      */
     init() {
         console.log("HomeController initialized");
-        document.addEventListener(
-            "page:init",
-            async (e) => await this.handlePageInit(e)
-        );
-        document.addEventListener(
-            "click",
-            async (e) => await this.handleClickEvents(e)
-        );
-        new EventService().addEventListener(
-            "logout",
-            async () => await this.logUserOut()
-        );
+
+        // Page initialization events
+        document.addEventListener("page:init", async (e) => {
+            await this.handlePageInit(e);
+        });
+
+        // Click events
+        document.addEventListener("click", async (e) => {
+            await this.handleClickEvents(e);
+        });
+
+        // Custom logout event
+        this.eventService.addEventListener("logout", async () => {
+            await this.logUserOut();
+        });
     }
 
     /**
      * Handles the page initialization event and processes actions based on the page name.
      *
-     * @param {Event} e The page initialization event.
-     * @returns {Promise<void>} A promise that resolves when the page handling is complete.
+     * @param {Event} e - The page initialization event
+     * @returns {Promise<void>} A promise that resolves when the page handling is complete
+     * @memberof HomeController
      */
     async handlePageInit(e) {
         const page = e.detail;
@@ -54,75 +65,85 @@ export default class HomeController {
     /**
      * Handles click events on the page, triggering actions based on the clicked element.
      *
-     * @param {Event} e The click event.
-     * @returns {Promise<void>} A promise that resolves when the click handling is complete.
+     * @param {Event} e - The click event
+     * @returns {Promise<void>} A promise that resolves when the click handling is complete
+     * @memberof HomeController
      */
     async handleClickEvents(e) {
-        if (e.target.id == "login-action") {
-            await this.loginUserToAccount();
-        }
-        if (e.target.id == "home-action-logout") {
+        if (e.target.id === "home-action-logout") {
             await this.logUserOut();
         }
     }
 
     /**
-     * Manages the state of the Welcome page based on device pairing and user login status.
+     * Manages the state of the Home page based on user login status.
      *
-     * @returns {Promise<void>} A promise that resolves when the home page handling is complete.
+     * @returns {Promise<void>} A promise that resolves when the home page handling is complete
+     * @memberof HomeController
      */
     async handleHomePage() {
-        //the place to start thinking of login logic
-        // const isLoggedIn = await this.isUserLoggedIn();
-        // if (!isLoggedIn) return
-        this.showLoginScreen();
+        try {
+            const isLoggedIn = await this.isUserLoggedIn();
+
+            if (isLoggedIn) {
+                return;
+            }
+
+            this.showLoginScreen();
+        } catch (error) {
+            Helper.showError(this.app, "Error checking login status");
+            console.error("Error in handleHomePage:", error);
+        }
     }
 
     /**
-     * Logs the user into their account by executing the login process.
-     *
-     * This function retrieves the user ID and password from the DOM, creates a
-     * data object to send, and then calls the `LoginUserUseCase` to handle the login.
-     *
-     * @returns {Promise<void>} A promise that resolves when the login process is complete.
-     * @throws {Error} Throws an error if the login process fails.
-     */
-    async loginUserToAccount() {
-        // const userId = new Helper().readAndClearField("login-user-id");
-        // const password = new Helper().readAndClearField("login-password");
-        // new Helper().readAndClearField("login-password-visible");
-        // await new LoginUserUseCase(this.app).execute(userId, password);
-        //clear data inputs
-    }
-
-    /**
-     * Logs out the current user by executing the LogoutUserUseCase.
+     * Logs out the current user.
      *
      * @async
-     * @returns {Promise<void>} A promise that resolves when the user is logged out.
+     * @returns {Promise<void>} A promise that resolves when the user is logged out
+     * @memberof HomeController
      */
     async logUserOut() {
-        // await new LogoutUserUseCase(this.app).execute();
+        try {
+            await new LogoutUserUsecase(this.app).execute();
+            Helper.showSuccess(this.app, "Logged out successfully");
+            this.showLoginScreen();
+        } catch (error) {
+            Helper.showError(this.app, "Error logging out");
+            console.error("Error in logUserOut:", error);
+        }
     }
 
     /**
-     * Checks if the user is logged in. Placeholder function for login logic.
+     * Checks if the user is logged in.
      *
-     * @returns {Promise<boolean>} A promise that resolves to true if the user is logged in, false otherwise.
+     * @returns {Promise<boolean>} A promise that resolves to true if the user is logged in
+     * @memberof HomeController
      */
     async isUserLoggedIn() {
-        // return await new VerifyLoginUsecase().execute();
+        try {
+            return await new VerifyLoginUsecase().execute();
+        } catch (error) {
+            console.error("Error verifying login:", error);
+            return false;
+        }
     }
 
     /**
      * Displays the login screen.
+     *
+     * @memberof HomeController
      */
     showLoginScreen() {
+        // Reset login button state to ensure it's not stuck in loading state
+        Helper.setButtonLoading(".login-button", false);
         this.app.loginScreen.open("#login-screen", false);
     }
 
     /**
      * Closes the login screen.
+     *
+     * @memberof HomeController
      */
     closeLoginScreen() {
         this.app.loginScreen.close("#login-screen", false);

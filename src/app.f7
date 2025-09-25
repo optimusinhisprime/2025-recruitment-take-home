@@ -1,123 +1,318 @@
 <template>
-  <div id="app">
-    <!-- Left panel with cover effect -->
-    <div class="panel panel-left panel-cover panel-init" data-visible-breakpoint="960">
-      <div class="view view-init" data-name="left">
-        <div class="page">
-          <div class="navbar">
-            <div class="navbar-bg"></div>
-            <div class="navbar-inner sliding">
-              <div class="title"><img src="/assets/logo.svg" alt="PrepaidPlus Logo"
-                  style="width: 140px; height: auto; margin-top: 7px" /></div>
-            </div>
-          </div>
-          <div class="page-content">
-            <div class="block-title">Links</div>
-            <div class="list links-list accordion-list">
-              <ul>
-                <li>
-                  <a href="/" class="panel-close">Dashboard</a>
-                </li>
-                <li class="accordion-item">
-                  <div class="accordion-item-toggle"><a href="#">Merchants</a></div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/" class="panel-close">Overview</a>
-                  </div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/" class="panel-close">Create</a>
-                  </div>
-                </li>
-                <li class="accordion-item">
-                  <div class="accordion-item-toggle"><a href="#">Deposits</a></div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/"
-                      class="panel-close">Overview</a></div>
-                </li>
-                <li class="accordion-item">
-                  <div class="accordion-item-toggle"><a href="#">Reports</a></div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/"
-                      class="panel-close">Overview</a></div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/"
-                      class="panel-close">Transactions</a>
-                  </div>
-                </li>
-                <li class="accordion-item">
-                  <div class="accordion-item-toggle"><a href="#">Admin</a></div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/"
-                      class="panel-close">Overview</a></div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/" class="panel-close">Users</a>
-                  </div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/" class="panel-close">Triggers</a>
-                  </div>
-                  <div class="accordion-item-content" style="padding-left: 20px !important;"><a href="/"
-                      class="panel-close">Authorisation</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="block-title">More</div>
-            <div class="list links-list">
-              <ul>
-                <li>
-                  <a href="/" class="panel-close">Helpdesk</a>
-                  <a href="/" class="panel-close">Settings</a>
-                  <!-- <li><a href="/left-page-2/">Left Page 2</a></li> -->
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Your main view, should have "view-main" class -->
-    <div class="view view-main view-init safe-areas" data-url="/"></div>
-
-    <!-- Login Screen -->
-    <div class="login-screen" id="login-screen">
-      <div class="view">
-        <div class="page">
-          <div class="page-content login-screen-content">
-            <div class="login-screen-title">Login</div>
-            <div class="list">
-              <ul>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Username</div>
-                    <div class="item-input-wrap">
-                      <input type="text" name="username" placeholder="Your username" />
-
+    <div id="app">
+        <!-- Left panel with cover effect -->
+        <div
+            class="panel panel-left panel-cover panel-init"
+            data-visible-breakpoint="960"
+        >
+            <div class="view view-init" data-name="left">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg"></div>
+                        <div class="navbar-inner sliding">
+                            <div class="title">
+                                <img
+                                    src="/assets/logo.svg"
+                                    alt="PrepaidPlus Logo"
+                                    style="
+                                        width: 140px;
+                                        height: auto;
+                                        margin-top: 7px;
+                                    "
+                                />
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </li>
-                <li class="item-content item-input">
-                  <div class="item-inner">
-                    <div class="item-title item-label">Password</div>
-                    <div class="item-input-wrap">
-                      <input type="password" name="password" placeholder="Your password" />
-
+                    <div class="page-content">
+                        <div class="block-title">Links</div>
+                        <div class="list links-list accordion-list">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="/"
+                                        class="panel-close"
+                                        data-view=".view-main"
+                                        >Dashboard</a
+                                    >
+                                </li>
+                                <li class="accordion-item">
+                                    <div class="accordion-item-toggle">
+                                        <a href="#">Merchants</a>
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Overview</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/create-user"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Create</a
+                                        >
+                                    </div>
+                                </li>
+                                <li class="accordion-item">
+                                    <div class="accordion-item-toggle">
+                                        <a href="#">Deposits</a>
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Overview</a
+                                        >
+                                    </div>
+                                </li>
+                                <li class="accordion-item">
+                                    <div class="accordion-item-toggle">
+                                        <a href="#">Reports</a>
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Overview</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Transactions</a
+                                        >
+                                    </div>
+                                </li>
+                                <li class="accordion-item">
+                                    <div class="accordion-item-toggle">
+                                        <a href="#">Admin</a>
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Overview</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Users</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Triggers</a
+                                        >
+                                    </div>
+                                    <div
+                                        class="accordion-item-content"
+                                        style="padding-left: 20px !important"
+                                    >
+                                        <a
+                                            href="/"
+                                            class="panel-close"
+                                            data-view=".view-main"
+                                            >Authorisation</a
+                                        >
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="block-title">More</div>
+                        <div class="list links-list">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="/"
+                                        class="panel-close"
+                                        data-view=".view-main"
+                                        >Helpdesk</a
+                                    >
+                                    <a
+                                        href="/"
+                                        class="panel-close"
+                                        data-view=".view-main"
+                                        >Settings</a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="panel-close"
+                                        id="home-action-logout"
+                                        style="color: #c0392b"
+                                    >
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                  </div>
-                </li>
-              </ul>
+                </div>
             </div>
-            <div class="list">
-              <ul>
-                <li>
-                  <a href="#" class="item-link list-button login-button">Sign In</a>
-
-                </li>
-              </ul>
-              <div class="block-footer">Some text about login information.<br />Click "Sign In" to close Login Screen
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
 
-  </div>
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main view-init safe-areas" data-url="/"></div>
+
+        <!-- Login Screen -->
+        <div class="login-screen" id="login-screen">
+            <div class="view">
+                <div class="page">
+                    <div class="page-content login-screen-content">
+                        <div class="login-screen-title">Login</div>
+                        <div class="list">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            Username
+                                        </div>
+                                        <div class="item-input-wrap">
+                                            <input
+                                                type="text"
+                                                name="username"
+                                                id="login-user-id"
+                                                placeholder="Your username"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            Password
+                                        </div>
+                                        <div class="item-input-wrap">
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                id="login-password"
+                                                placeholder="Your password"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="item-link list-button login-button"
+                                        >Sign In</a
+                                    >
+                                </li>
+                            </ul>
+                            <div class="block-footer">
+                                <a href="/" class="forgot-password-link">
+                                    Forgot Password?
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forgot Password Screen -->
+        <div class="login-screen" id="forgot-password-screen">
+            <div class="view">
+                <div class="page">
+                    <div class="page-content login-screen-content">
+                        <div class="login-screen-title">Reset Password</div>
+                        <div class="block">
+                            <p>
+                                Enter your email address and we'll send you
+                                instructions to reset your password.
+                            </p>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            Email *
+                                        </div>
+                                        <div class="item-input-wrap">
+                                            <input
+                                                type="email"
+                                                name="reset-email"
+                                                id="reset-email"
+                                                placeholder="Enter your email address"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="#"
+                                        class="item-link list-button send-reset-button"
+                                    >
+                                        Send Reset Instructions
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="block-footer">
+                                Remember your password?
+                                <a href="#" class="back-to-login-link"
+                                    >Back to Login</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
-<script>
-  export default (props, { $f7, $update }) => {
 
-    return $render;
-  }
+<script>
+    export default (props, { $f7, $update }) => {
+        return $render;
+    };
 </script>
