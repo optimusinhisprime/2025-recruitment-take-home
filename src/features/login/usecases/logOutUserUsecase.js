@@ -7,7 +7,7 @@ import Helper from "../../../utils/helper.js";
  * @export
  * @class LogOutUserUsecase
  */
-export default class LogOutUserUsecase {
+export default class LogoutUserUsecase {
     /**
      * Creates an instance of LogOutUserUsecase.
      * @param {Object} app - The Framework7 app instance
